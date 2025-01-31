@@ -1,8 +1,25 @@
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
-import { BookOpenIcon, ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
+import { BookOpenIcon } from "@heroicons/react/24/solid";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 export default function Header() {
+  useEffect(() => {
+    const isFirstVisit = localStorage.getItem("visited");
+    // checking
+    if (!isFirstVisit) {
+      toast(
+        <div className="text-center">
+          <p> 💥 Welcome To My Website 💥 </p>
+          <p> 💥 Created by Hafiz Usman Ghani 💥 </p>
+        </div>
+      );
+      // setting
+      localStorage.setItem("visited", "true");
+    }
+  }, []);
+
   return (
     <>
       {/* 🌙 Header */}
@@ -10,20 +27,19 @@ export default function Header() {
         <div className="container mx-auto flex items-center justify-between px-6">
           <h1 className="text-3xl font-bold tracking-wide flex items-center">
             <BookOpenIcon className="h-8 w-8 mr-2" />
-            <Link to={"/"}> Al-Quran</Link>
+            <Link to={"/"} className="">
+              Recite Quran
+            </Link>
           </h1>
           {/* <p className="text-lg ">Contact</p> */}
-          <ChatBubbleBottomCenterTextIcon className="h-7 " />
+          <ChatBubbleBottomCenterTextIcon
+            className="h-7 "
+            onClick={() => {
+              const msg = prompt("Enter your message here");
+            }}
+          />
         </div>
       </header>
     </>
-
-    //     <header className="bg-primary text-secondary py-4 shadow-lg">
-    //       <div className="container mx-auto px-4">
-    //         <Link to="/" className="flex items-center gap-2">
-    //           <h1 className="text-2xl font-bold">Recite Quran </h1>
-    //         </Link>
-    //       </div>
-    //     </header>
   );
 }

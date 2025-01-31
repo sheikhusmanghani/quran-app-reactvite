@@ -44,9 +44,9 @@ export default function SurahDetail() {
       <div className="container mx-auto px-6 py-6">
         <Link
           to="/"
-          className="flex items-center text-blue-600 hover:text-red-800 transition text-lg"
+          className="flex items-center font-semibold text-blue-600 hover:text-red-800 transition text-lg"
         >
-          <ArrowLeftCircleIcon className="h-6 w-auto mr-2 " />
+          <ArrowLeftCircleIcon className="h-6 w-auto mr-2 border-2 rounded-full" />
           Back to Surahs
         </Link>
       </div>

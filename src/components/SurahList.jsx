@@ -50,7 +50,7 @@ export default function SurahList() {
                   {surah.number}
                 </span>
                 <span className="text-sm px-3 py-1 bg-blue-500 text-white rounded-full">
-                  {surah.revelationType}
+                  {surah.revelationType == "Meccan" ? "Makki" : "Madani"}
                 </span>
               </div>
 

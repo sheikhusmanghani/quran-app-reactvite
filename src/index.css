@@ -8,11 +8,15 @@
   font-style: normal;
 }
 
-.urdu-font {
+.font-arabic {
   font-family: "AlQalam", serif; /* اب نیا فونٹ استعمال ہوگا */
   line-height: 2;
   direction: rtl;
 }
+.urdu-font{
+  direction: rtl;
+}
+
 /* 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

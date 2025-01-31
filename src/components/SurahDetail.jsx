@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 
 export default function SurahDetail() {
   const { number } = useParams();
@@ -44,41 +44,49 @@ export default function SurahDetail() {
       <div className="container mx-auto px-6 py-6">
         <Link
           to="/"
-          className="flex items-center text-blue-600 hover:text-blue-800 transition"
+          className="flex items-center text-blue-600 hover:text-red-800 transition text-lg"
         >
-          <ArrowLeftIcon className="h-5 w-5 mr-2" />
+          <ArrowLeftCircleIcon className="h-6 w-auto mr-2 " />
           Back to Surahs
         </Link>
       </div>
 
       {/* 📖 Surah Header */}
       <div className="container mx-auto px-6 py-4 bg-blue-600 text-white rounded-lg shadow-md text-center">
-        <h1 className="text-3xl font-bold">{surah.englishName}</h1>
-        <p className="text-lg mt-1 opacity-90">
-          {surah.englishNameTranslation}
+        <h1 className="text-3xl font-bold">
+          {surah.englishName} &nbsp;
+          <span className="text-lg mt-1 ">
+            ( {surah.englishNameTranslation} )
+          </span>
+        </h1>
+
+        <p className="text-sm mt-1 font-semibold">
+          Surah Number : {surah.number}&nbsp; - &nbsp;
+          {surah.revelationType == "Meccan" ? "Makki" : "Madani"} - &nbsp;Number
+          Of Aayaat : {surah.numberOfAyahs}
         </p>
-        <p className="text-sm mt-1">{surah.revelationType}</p>
       </div>
 
       {/* 📜 Surah Ayahs */}
       <div className="container mx-auto px-6 py-8">
         <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+          {/* <span className="font-arabic text-"> بِسْمِ اللّٰهِ الرَّحْمَٰنِ الرَّحِيمِ</span> */}
           {surah.ayahs.map((ayah, index) => (
             <div
               key={ayah.number}
-              className="p-4 border-b border-gray-200 last:border-0"
+              className="p-4 border-b-2 border-gray-200 last:border-0 "
             >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between">
-                <div className="flex-1">
+              <div className="flex fle x-col gap-3 items-baseline md:flex-row md:items-baseline md:justify-between ">
+                <div className="flex-1 ">
                   {/* Arabic Text */}
                   <p className="text-2xl text-right font-arabic leading-loose text-gray-900">
-                    {ayah.text}
+                    {ayah.text} .
                   </p>
 
                   {/* Urdu Translation */}
-                  <p className="text-lg urdu-font text-gray-600 mt-3">
+                  {/* <p className="text-lg urdu-font text-gray-600 mt-3">
                     {surah.urduEdition.ayahs[index].text}
-                  </p>
+                  </p> */}
                 </div>
 
                 {/* Ayah Number Badge */}

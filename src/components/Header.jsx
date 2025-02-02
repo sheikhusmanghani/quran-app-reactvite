@@ -10,7 +10,7 @@ export default function Header() {
     // checking
     if (!isFirstVisit) {
       toast(
-        <div className="text-center">
+        <div className="text-center ">
           <p> 💥 Welcome To My Website 💥 </p>
           <p> 💥 Created by Hafiz Usman Ghani 💥 </p>
         </div>

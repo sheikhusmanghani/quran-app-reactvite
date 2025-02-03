@@ -22,10 +22,8 @@ export default function SurahList() {
 
   useEffect(() => {
     fetchSurahs();
-    console.log(surahs);
   }, []);
 
-<<<<<<< HEAD
   // Function to remove diacritics (Harakat) from Arabic text
   const removeDiacritics = (text) => {
     return text.normalize("NFKD").replace(/[\u064B-\u065F]/g, "");
@@ -41,14 +39,6 @@ export default function SurahList() {
       surah.number.toString().startsWith(searchTerm)
     );
   });
-=======
-  const filteredSurahs = surahs.filter(
-    (surah) =>
-      surah.englishName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      surah.name.includes(searchTerm) ||
-      surah.number.toString().includes(searchTerm)
-  );
->>>>>>> b7fb1c60b86a2fb567a9d6a50dc55832577c9772
 
   return (
     <div className="bg-gray-50 min-h-screen">

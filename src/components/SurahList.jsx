@@ -7,6 +7,10 @@ export default function SurahList() {
   const [surahs, setSurahs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  useEffect(() => {
+    fetchSurahs();
+  }, []);
+
   const fetchSurahs = async () => {
     // if data is stored
     if (sessionStorage.getItem("surahs")) {
@@ -20,22 +24,18 @@ export default function SurahList() {
     sessionStorage.setItem("surahs", JSON.stringify(data.data)); //storing
   };
 
-  useEffect(() => {
-    fetchSurahs();
-  }, []);
-
-  // Function to remove diacritics (Harakat) from Arabic text
+  // Remove diacritics (Harakat) from Arabic text
   const removeDiacritics = (text) => {
     return text.normalize("NFKD").replace(/[\u064B-\u065F]/g, "");
   };
 
   const filteredSurahs = surahs.filter((surah) => {
-    const normalizedSurahName = removeDiacritics(surah.name); // Arabic name without diacritics
-    const normalizedSearch = removeDiacritics(searchTerm); // Search term without diacritics
+    const normalizedSurahName = removeDiacritics(surah.name); // Arabic name without Harakat
+    const normalizedSearch = removeDiacritics(searchTerm); // Search term without Harakat
 
     return (
-      surah.englishName.toLowerCase().match(searchTerm.toLowerCase()) ||
-      normalizedSurahName.includes(normalizedSearch) || // Compare without diacritics
+      surah.englishName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      normalizedSurahName.includes(normalizedSearch) || // Compare without Harakat
       surah.number.toString().startsWith(searchTerm)
     );
   });

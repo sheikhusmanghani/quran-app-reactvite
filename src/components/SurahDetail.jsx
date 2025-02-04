@@ -10,32 +10,32 @@ export default function SurahDetail() {
   const { number } = useParams();
   const [surah, setSurah] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [searchOpen, setSearchOpen] = useState(false); // Search bar toggle state
-  const [searchTerm, setSearchTerm] = useState(""); // Search input value
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTranslation, setSelectedTranslation] = useState("urdu"); // Default Urdu Translation
+
+  const fetchSurah = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://api.alquran.cloud/v1/surah/${number}/editions/ar.uthmani,ur.kanzuliman,en.ahmedraza`
+        // editions/ur.kanzuliman --> kanzuliman , ur.qadri --> tahirulqadri , ar.jalalayn --> jalalain
+      );
+
+      const combinedData = {
+        arabicEdition: data.data[0], // Arabic
+        urduEdition: data.data[1], // Urdu
+        englishEdition: data.data[2], // English
+      };
+
+      setSurah(combinedData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchSurah = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://api.alquran.cloud/v1/surah/${number}/editions/ar.uthmani,ur.kanzuliman,en.ahmedraza`
-          // editions/ur.kanzuliman --> kanzuliman , ur.qadri --> tahirulqadri , ar.jalalayn --> jalalain
-        );
-
-        const combinedData = {
-          arabicEdition: data.data[0], // Arabic
-          urduEdition: data.data[1], // Urdu
-          englishEdition: data.data[2], // english
-        };
-
-        setSurah(combinedData);
-        console.log("data==>", combinedData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchSurah();
   }, [number]);
 
@@ -49,11 +49,9 @@ export default function SurahDetail() {
   // 🔍 Filtered Ayahs based on search term
   const filteredAyahs = surah.arabicEdition.ayahs.filter(
     (ayah) =>
-      ayah.number.toString().startsWith(searchTerm.toString()) || // Ayah number match karega
-      ayah.text.includes(searchTerm) // Arabic text match karega
+      ayah.number.toString().startsWith(searchTerm.toString()) ||
+      ayah.text.includes(searchTerm)
   );
-
-  // console.log(filteredAyahs);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -67,16 +65,29 @@ export default function SurahDetail() {
           Back to Surahs
         </Link>
 
-        {/* 🔍 Search Button */}
-        <button
-          onClick={() => setSearchOpen(!searchOpen)}
-          className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300"
-        >
-          <MagnifyingGlassIcon className="h-5 w-5" />
-        </button>
+        {/* 🔍 Search & Translation Dropdown */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => setSearchOpen(!searchOpen)}
+            className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300"
+          >
+            <MagnifyingGlassIcon className="h-5 w-5" />
+          </button>
+
+          {/* 🌍 Translation Select Dropdown */}
+          <select
+            // value={selectedTranslation}
+            onChange={(e) => setSelectedTranslation(e.target.value)}
+            className="bg-blue-600 text-white px-2 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 cursor-pointer "
+          >
+            <option value="urdu">Urdu</option>
+            <option value="english">English</option>
+            <option value="arabic">Arabic</option>
+          </select>
+        </div>
       </div>
 
-      {/* 🔍 Search Bar (Now Appears on Top) */}
+      {/* 🔍 Search Bar */}
       <div
         className={`container mx-auto px-6 transition-all duration-300 overflow-hidden ${
           searchOpen ? "max-h-20 opacity-100" : "max-h-0 opacity-0"
@@ -95,14 +106,14 @@ export default function SurahDetail() {
       <div className="container mx-auto px-6 py-4 bg-blue-600 text-white rounded-lg shadow-md text-center">
         <h1 className="text-3xl font-bold">
           {surah.arabicEdition.englishName} &nbsp;
-          <span className="text-lg mt-1 ">
+          <span className="text-lg mt-1">
             ( {surah.arabicEdition.englishNameTranslation} )
           </span>
         </h1>
         <p className="text-sm mt-1 font-semibold">
           Surah Number : {surah.arabicEdition.number} -{" "}
           {surah.arabicEdition.revelationType === "Meccan" ? "Makki" : "Madani"}{" "}
-          - Number Of Aayaat : {surah.arabicEdition.numberOfAyahs}
+          - Total Aayaat: {surah.arabicEdition.numberOfAyahs}
         </p>
       </div>
 
@@ -115,22 +126,34 @@ export default function SurahDetail() {
                 key={ayah.number}
                 className="p-4 border-b-2 border-gray-200 last:border-0"
               >
-                <div className="text-2xl text-justify font-arabic leading-loose text-gray-900  ">
+                {/* Arabic Text */}
+                <div className="text-2xl text-justify font-arabic leading-loose text-gray-900">
                   {ayah.text}
-
-                  {/* Ayah Number Badge (Inline with Arabic Text) */}
-                  <span className="bg-blue-500 text-white inline-flex justify-center items-center h-7 px-3 rounded-[100%] mr-2 shadow-md">
+                  <span className="bg-blue-500 text-white inline-flex justify-center items-center h-7 px-2 rounded-full mr-2 shadow-md">
                     {ayah.numberInSurah}
                   </span>
                 </div>
 
-                {/* Urdu Translation */}
-                <p className="text-lg urdu-font text-justify text-gray-600 mt-3">
-                  {surah.urduEdition.ayahs[index].text}
-                </p>
+                {/* 🌍 Dynamic Translation Based on Selected Language */}
+
+                {selectedTranslation === "arabic" ? (
+                  <p className="text-justify right-dir">
+                    {surah.arabicEdition.ayahs[index].text}
+                  </p>
+                ) : selectedTranslation === "english" ? (
+                  <p className="text-justify left-dir">
+                    {surah.englishEdition.ayahs[index].text}
+                  </p>
+                ) : (
+                  <p className="text-justify right-dir">
+                    {surah.urduEdition.ayahs[index].text}
+                  </p>
+                )}
               </div>
-            ))
+              //
+            )) // end of map()
           ) : (
+            // if no data
             <div className="flex items-center justify-center h-36">
               <span className="text-gray-500 text-lg font-semibold">
                 No matching Ayah found! Try another search.

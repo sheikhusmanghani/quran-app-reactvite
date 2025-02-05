@@ -1,18 +1,32 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap");
 
+/* kfg arabic font */
 @font-face {
-  font-family: "AlQalam";
+  font-family: "KFGQPC Uthmanic Script HAFS Regular", serif;
   src: url("/KFGQPC Uthmanic Script HAFS Regular.otf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
-
 .font-arabic {
   font-family: "KFGQPC Uthmanic Script HAFS Regular", serif;
   line-height: 2;
   direction: rtl;
 }
+
+/* jameel noori  */
+@font-face {
+  font-family: "Jameel Noori Nastaleeq", serif;
+  src: url("/Jameel Noori Nastaleeq.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.font-urdu {
+  font-family: "Jameel Noori Nastaleeq";
+  margin: 4px 0; 
+}
+
+/* .english-font{} */
+
 .right-dir {
   direction: rtl;
 }

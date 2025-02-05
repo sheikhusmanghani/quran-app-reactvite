@@ -17,14 +17,15 @@ export default function SurahDetail() {
   const fetchSurah = async () => {
     try {
       const { data } = await axios.get(
-        `https://api.alquran.cloud/v1/surah/${number}/editions/ar.uthmani,ur.kanzuliman,en.ahmedraza`
+        `https://api.alquran.cloud/v1/surah/${number}/editions/ar.uthmani,ur.kanzuliman,en.ahmedraza,ar.jalalayn`
         // editions/ur.kanzuliman --> kanzuliman , ur.qadri --> tahirulqadri , ar.jalalayn --> jalalain
       );
 
       const combinedData = {
-        arabicEdition: data.data[0], // Arabic
+        arabicEdition: data.data[0], // Quran text
         urduEdition: data.data[1], // Urdu
         englishEdition: data.data[2], // English
+        jalalainArabic: data.data[3], // jalalainArabic
       };
 
       setSurah(combinedData);
@@ -56,7 +57,7 @@ export default function SurahDetail() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 🔙 Back Button & Search Button */}
-      <div className="container mx-auto px-6 py-3 flex justify-between items-center">
+      <div className="container mx-auto px-2 py-2 flex justify-between items-center">
         <Link
           to="/"
           className="flex items-center font-semibold text-blue-600 hover:text-red-800 transition text-lg"
@@ -69,20 +70,20 @@ export default function SurahDetail() {
         <div className="flex gap-2">
           <button
             onClick={() => setSearchOpen(!searchOpen)}
-            className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300"
+            className="flex items-center bg-blue-600 text-white px-2 py-2 rounded-xl shadow-md hover:bg-blue-700 transition-all duration-300"
           >
-            <MagnifyingGlassIcon className="h-5 w-5" />
+            <MagnifyingGlassIcon className="h-5 w-5 " />
           </button>
 
           {/* 🌍 Translation Select Dropdown */}
           <select
-            // value={selectedTranslation}
+            // value={selectedTranslation} // iski ab need nhi hy
             onChange={(e) => setSelectedTranslation(e.target.value)}
-            className="bg-blue-600 text-white px-2 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 cursor-pointer "
+            className="bg-blue-600 appearance-none text-center text-white px-2 py-2 rounded-xl shadow-md hover:bg-blue-700 transition-all duration-500 cursor-pointer "
           >
-            <option value="urdu">Urdu</option>
-            <option value="english">English</option>
-            <option value="arabic">Arabic</option>
+            <option value="urdu">Urdu ▷ </option>
+            <option value="arabic">Arabic ▷</option>
+            <option value="english">English ▷</option>
           </select>
         </div>
       </div>
@@ -103,28 +104,28 @@ export default function SurahDetail() {
       </div>
 
       {/* 📖 Surah Header */}
-      <div className="container mx-auto px-6 py-4 bg-blue-600 text-white rounded-lg shadow-md text-center">
-        <h1 className="text-3xl font-bold">
-          {surah.arabicEdition.englishName} &nbsp;
+      <div className="container mx-auto px-2 py-4 text-wrap bg-blue-600 text-white rounded-lg shadow-md text-center">
+        <h1 className="text-xl md:text-3xl font-[Arial] font-bold  ">
+          {surah.arabicEdition.englishName}{" "}
           <span className="text-lg mt-1">
-            ( {surah.arabicEdition.englishNameTranslation} )
+            ({surah.arabicEdition.englishNameTranslation})
           </span>
         </h1>
-        <p className="text-sm mt-1 font-semibold">
+        <p className="text-sm mt-1 font-semibold text-wrap">
           Surah Number : {surah.arabicEdition.number} -{" "}
           {surah.arabicEdition.revelationType === "Meccan" ? "Makki" : "Madani"}{" "}
-          - Total Aayaat: {surah.arabicEdition.numberOfAyahs}
+          - Total Aayaat : {surah.arabicEdition.numberOfAyahs}
         </p>
       </div>
 
       {/* 📜 Surah Ayahs */}
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto py-3 shadow-3xl">
         <div className="bg-white rounded-lg shadow-md p-4 space-y-6">
           {filteredAyahs.length > 0 ? (
             filteredAyahs.map((ayah, index) => (
               <div
                 key={ayah.number}
-                className="p-4 border-b-2 border-gray-200 last:border-0"
+                className="p-2 border-b-2 border-gray-200 last:border-0"
               >
                 {/* Arabic Text */}
                 <div className="text-2xl text-justify font-arabic leading-loose text-gray-900">
@@ -137,15 +138,15 @@ export default function SurahDetail() {
                 {/* 🌍 Dynamic Translation Based on Selected Language */}
 
                 {selectedTranslation === "arabic" ? (
-                  <p className="text-justify right-dir">
-                    {surah.arabicEdition.ayahs[index].text}
+                  <p className="text-justify font-arabic text-xl right-dir">
+                    {surah.jalalainArabic.ayahs[index].text}
                   </p>
                 ) : selectedTranslation === "english" ? (
-                  <p className="text-justify left-dir">
+                  <p className="text-justify left-dir font-sans text-md">
                     {surah.englishEdition.ayahs[index].text}
                   </p>
                 ) : (
-                  <p className="text-justify right-dir">
+                  <p className="text-justify font-urdu text-xl right-dir">
                     {surah.urduEdition.ayahs[index].text}
                   </p>
                 )}

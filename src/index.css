@@ -2,30 +2,26 @@
 
 /* kfg arabic font */
 @font-face {
-  font-family: "KFGQPC Uthmanic Script HAFS Regular", serif;
-  src: url("/KFGQPC Uthmanic Script HAFS Regular.otf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+  font-family: "KFG-Font";
+  src: url("/KFGQPC Uthmanic Script HAFS Regular.otf") format("opentype");
 }
 .font-arabic {
-  font-family: "KFGQPC Uthmanic Script HAFS Regular", serif;
+  font-family: "KFG-Font";
   line-height: 2;
   direction: rtl;
 }
 
 /* jameel noori  */
 @font-face {
-  font-family: "Jameel Noori Nastaleeq", serif;
+  font-family: "Noori-Nastaleeq";
   src: url("/Jameel Noori Nastaleeq.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 .font-urdu {
-  font-family: "Jameel Noori Nastaleeq";
-  margin: 4px 0; 
+  font-family: "Noori-Nastaleeq";
+  margin: 4px 0;
 }
-
-/* .english-font{} */
 
 .right-dir {
   direction: rtl;

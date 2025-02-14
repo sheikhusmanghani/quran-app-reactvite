@@ -51,7 +51,7 @@ export default function SurahList() {
           <input
             type="text"
             placeholder="Search Surah Name Or Number. etc Fatiha Or 1..."
-            className="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition shadow-sm"
+            className="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:mainColor focus:outline-none transition shadow-sm"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -65,7 +65,7 @@ export default function SurahList() {
           //   </span>
           // </div>
           <div className="flex items-center justify-center min-h-[50vh]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 mainColor"></div>
           </div>
         ) : (
           <>
@@ -79,10 +79,10 @@ export default function SurahList() {
                     className="bg-white p-6 rounded-lg shadow-md border border-gray-200 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-white bg-blue-500 px-2 rounded-full">
+                      <span className="text-lg font-bold text-white mainColor px-2 rounded-full">
                         {surah.number}
                       </span>
-                      <span className="text-sm px-3 py-1 bg-blue-500 text-white rounded-full">
+                      <span className="text-sm px-3 py-1 mainColor text-white rounded-full">
                         {surah.revelationType === "Meccan" ? "Makki" : "Madani"}
                       </span>
                     </div>
@@ -100,7 +100,7 @@ export default function SurahList() {
                       {surah.name}
                     </div>
 
-                    <div className="mt-3 text-sm text-center bg-blue-500 text-white rounded-xl py-1">
+                    <div className="mt-3 text-sm text-center mainColor text-white rounded-xl py-1">
                       Total Aayaat : {surah.numberOfAyahs}
                     </div>
                   </Link>

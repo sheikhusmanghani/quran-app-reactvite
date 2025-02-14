@@ -30,3 +30,7 @@
 .left-dir {
   direction: ltr;
 }
+
+.mainColor {
+  background-color: dodgerBlue;
+}

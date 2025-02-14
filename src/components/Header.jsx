@@ -23,7 +23,7 @@ export default function Header() {
   return (
     <>
       {/* 🌙 Header */}
-      <header className="bg-blue-600 text-white py-4 shadow-md">
+      <header className="mainColor text-white py-4 shadow-md">
         <div className="container mx-auto flex items-center justify-between px-6">
           <h1 className="text-3xl font-bold tracking-wide flex items-center">
             <BookOpenIcon className="h-8 w-8 mr-2" />

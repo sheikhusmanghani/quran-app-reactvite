@@ -70,7 +70,7 @@ export default function SurahDetail() {
         <div className="flex gap-2">
           <button
             onClick={() => setSearchOpen(!searchOpen)}
-            className="flex items-center bg-blue-600 text-white px-2 py-2 rounded-xl shadow-md hover:bg-blue-700 transition-all duration-300"
+            className="flex items-center mainColor text-white px-2 py-2 rounded-xl shadow-md hover:mainColor transition-all duration-300"
           >
             <MagnifyingGlassIcon className="h-5 w-5 " />
           </button>
@@ -79,7 +79,7 @@ export default function SurahDetail() {
           <select
             // value={selectedTranslation} // iski ab need nhi hy
             onChange={(e) => setSelectedTranslation(e.target.value)}
-            className="bg-blue-600 appearance-none text-center text-white px-2 py-2 rounded-xl shadow-md hover:bg-blue-700 transition-all duration-500 cursor-pointer "
+            className="mainColor appearance-none text-center text-white px-2 py-2 rounded-xl shadow-md hover:bg-blue-400 transition-all duration-500 cursor-pointer "
           >
             <option value="urdu">Urdu ▷ </option>
             <option value="arabic">Arabic ▷</option>
@@ -97,14 +97,14 @@ export default function SurahDetail() {
         <input
           type="text"
           placeholder="Search Ayah..."
-          className="w-full p-3 mb-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-md mt-1"
+          className="w-full p-3 mb-3 border border-gray-300 rounded-lg focus:ring-2 focus:mainColor focus:outline-none shadow-md mt-1"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
       {/* 📖 Surah Header */}
-      <div className="container mx-auto px-2 py-4 text-wrap bg-blue-600 text-white rounded-lg shadow-md text-center">
+      <div className="container mx-auto px-2 py-4 text-wrap mainColor text-white rounded-lg shadow-md text-center">
         <h1 className="text-xl md:text-3xl font-[Arial] font-bold  ">
           {surah.arabicEdition.englishName}{" "}
           <span className="text-lg mt-1">
@@ -130,7 +130,7 @@ export default function SurahDetail() {
                 {/* Arabic Text */}
                 <div className="text-2xl text-justify font-arabic leading-loose text-gray-900">
                   {ayah.text}
-                  <span className="bg-blue-500 text-white inline-flex justify-center items-center h-7 px-2 rounded-full mr-2 shadow-md">
+                  <span className="mainColor text-white inline-flex justify-center items-center h-7 px-2 rounded-full mr-2 shadow-md">
                     {ayah.numberInSurah}
                   </span>
                 </div>

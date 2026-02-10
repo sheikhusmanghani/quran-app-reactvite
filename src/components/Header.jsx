@@ -35,7 +35,7 @@ export default function Header() {
           <ChatBubbleBottomCenterTextIcon
             className="h-7 "
             onClick={() => {
-              const msg = prompt("Enter your message here");
+              const msg = prompt("Please write your message here. It will be delivered to Usman Ghani.");
             }}
           />
         </div>
